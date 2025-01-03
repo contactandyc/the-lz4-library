@@ -949,8 +949,7 @@ LZ4_FORCE_INLINE int LZ4_compress_generic(
                 DEBUGLOG(7, "candidate at pos=%u  (offset=%u \n", matchIndex, current - matchIndex);
                 if ((dictIssue == dictSmall) && (matchIndex < prefixIdxLimit)) { continue; }    /* match outside of valid area */
                 assert(matchIndex < current);
-                if ( ((tableType != byU16) || (LZ4_DISTANCE_MAX < LZ4_DISTANCE_ABSOLUTE_MAX))
-                  && (matchIndex+LZ4_DISTANCE_MAX < current)) {
+                if (tableType != byU16 && (matchIndex+LZ4_DISTANCE_MAX < current)) {
                     continue;
                 } /* too far */
                 assert((current - matchIndex) <= LZ4_DISTANCE_MAX);  /* match now expected within distance */
@@ -1134,7 +1133,7 @@ _next_match:
             LZ4_putIndexOnHash(current, h, cctx->hashTable, tableType);
             assert(matchIndex < current);
             if ( ((dictIssue==dictSmall) ? (matchIndex >= prefixIdxLimit) : 1)
-              && (((tableType==byU16) && (LZ4_DISTANCE_MAX == LZ4_DISTANCE_ABSOLUTE_MAX)) ? 1 : (matchIndex+LZ4_DISTANCE_MAX >= current))
+              && ((tableType==byU16) ? 1 : (matchIndex+LZ4_DISTANCE_MAX >= current))
               && (LZ4_read32(match) == LZ4_read32(ip)) ) {
                 token=op++;
                 *token=0;

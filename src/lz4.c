@@ -415,17 +415,45 @@ lz4_t *_lz4_init(int level, lz4_block_size_t size, bool block_checksum,
 
 void lz4_destroy(lz4_t *r) { aml_free(r); }
 
-size_t lz4_compress_appending_to_buffer(aml_buffer_t *dest, void *src, int src_size) {
-  int max_dst_size = LZ4_compressBound(src_size);
-  size_t olen = aml_buffer_length(dest);
-  void *dst = (void *)aml_buffer_append_ualloc(dest, max_dst_size);
-  int compressed_data_size = LZ4_compress_default((const char *)src, (char *)dst, src_size, max_dst_size);
-  if (compressed_data_size <= 0) {
-    aml_buffer_resize(dest, olen);
-    return 0;
-  }
-  aml_buffer_resize(dest, olen + compressed_data_size);
-  return compressed_data_size;
+size_t lz4_compress_appending_to_buffer(aml_buffer_t *dest, void *src, int src_size, int level) {
+    int max_dst_size = LZ4_compressBound(src_size);
+    size_t olen = aml_buffer_length(dest);
+
+    // Allocate space for both the compressed data and the HC stream
+    size_t hc_stream_size = (level > 0) ? (sizeof(LZ4_streamHC_t)+8) : 0;
+    void *dst = (void *)aml_buffer_append_ualloc(dest, max_dst_size + hc_stream_size);
+
+    if (!dst) {
+        return 0; // Memory allocation failed
+    }
+
+    int compressed_data_size = 0;
+
+    if (level <= 0) {
+        // Use default compression (fast mode)
+        compressed_data_size = LZ4_compress_default((const char *)src, (char *)dst, src_size, max_dst_size);
+    } else {
+        // Use high-compression mode
+        char *ep = dst+max_dst_size;
+        ep += 8 - ((size_t)ep & 7); // Ensure 8-byte alignment
+        LZ4_streamHC_t *hc_stream = (LZ4_streamHC_t *)ep; // Place HC stream after the compressed data space
+
+        // Initialize the stream
+        LZ4_initStreamHC(hc_stream, sizeof(LZ4_streamHC_t));
+        LZ4_setCompressionLevel(hc_stream, level);
+
+        compressed_data_size = LZ4_compress_HC_extStateHC(hc_stream, (const char *)src, (char *)dst, src_size, max_dst_size, level);
+    }
+
+    if (compressed_data_size <= 0) {
+        // Compression failed, revert buffer size
+        aml_buffer_resize(dest, olen);
+        return 0;
+    }
+
+    // Resize the buffer to match the compressed data size (ignore HC stream memory)
+    aml_buffer_resize(dest, olen + compressed_data_size);
+    return compressed_data_size;
 }
 
 bool lz4_decompress_into_fixed_buffer(void *dest, int dest_size, void *src, int src_size) {

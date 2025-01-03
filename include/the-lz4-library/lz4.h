@@ -30,7 +30,7 @@ uint64_t lz4_hash64(const void *s, size_t len);
 
 int lz4_compress_bound(int inputSize);
 
-size_t lz4_compress_appending_to_buffer(aml_buffer_t *dest, void *src, int src_size);
+size_t lz4_compress_appending_to_buffer(aml_buffer_t *dest, void *src, int src_size, int level);
 bool lz4_decompress_into_fixed_buffer(void *dest, int dest_size, void *src, int src_size);
 
 
