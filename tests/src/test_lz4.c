@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2019–2025 Andy Curtis <contactandyc@gmail.com>
+// SPDX-FileCopyrightText: 2024–2025 Knode.ai — technical questions: contact Andy (above)
+// SPDX-License-Identifier: Apache-2.0
+
 #include "the-lz4-library/lz4.h"
 #include "a-memory-library/aml_buffer.h"
 #include <stdio.h>
@@ -6,7 +10,7 @@
 
 #define TEST_STRING "This is a test string to verify LZ4 compression and decompression functionality."
 
-void test_lz4_compression_and_decompression() {
+void test_lz4_compression_and_decompression(void) {
     printf("Running LZ4 compression and decompression test...\n");
 
     // Original data
@@ -62,7 +66,7 @@ void test_lz4_compression_and_decompression() {
     aml_buffer_destroy(compressed_buffer);
 }
 
-void test_lz4_block_compression() {
+void test_lz4_block_compression(void) {
     printf("\nRunning LZ4 block compression test...\n");
 
     // Original data
@@ -131,7 +135,7 @@ void test_lz4_block_compression() {
     lz4_destroy(lz4_ctx);
 }
 
-int main() {
+int main(void) {
     test_lz4_compression_and_decompression();
     test_lz4_block_compression();
     return 0;
