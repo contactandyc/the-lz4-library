@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019–2025 Andy Curtis <contactandyc@gmail.com>
+// SPDX-FileCopyrightText: 2019–2026 Andy Curtis <contactandyc@gmail.com>
 // SPDX-FileCopyrightText: 2024–2025 Knode.ai — technical questions: contact Andy (above)
 // SPDX-License-Identifier: Apache-2.0
 
@@ -14,6 +14,7 @@
 extern "C" {
 #endif
 
+uint32_t lz4_hash32(const void *s, size_t len);
 uint64_t lz4_hash64(const void *s, size_t len);
 
 int lz4_compress_bound(int inputSize);

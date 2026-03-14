@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2019–2025 Andy Curtis <contactandyc@gmail.com>
+// SPDX-FileCopyrightText: 2019–2026 Andy Curtis <contactandyc@gmail.com>
 // SPDX-FileCopyrightText: 2024–2025 Knode.ai — technical questions: contact Andy (above)
 // SPDX-License-Identifier: Apache-2.0
 
@@ -14,6 +14,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+uint32_t lz4_hash32(const void *s, size_t len) {
+  return (uint32_t)XXH32(s, len, 0);
+}
 
 uint64_t lz4_hash64(const void *s, size_t len) {
   return (uint64_t)XXH64(s, len, 0);
