@@ -1,0 +1,12 @@
+project_title: The LZ4 Library
+version: 0.0.1
+
+profile: andy-curtis/andy-curtis-knode
+template: cmake-c-git
+
+library_sources:
+  - src/lz4.c
+license_overrides:
+  "src/impl/**": andy-curtis/lz4
+depends_on:
+  - https://github.com/contactandyc/a-memory-library.git
