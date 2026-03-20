@@ -49,8 +49,11 @@ find_package(a_memory_library CONFIG REQUIRED)
 
 # ---- Dependencies (PkgConfig Shims) ----
 
+
 # ── Library variants (ALL are defined & built/installed) ──────────────────────
-add_library(the_lz4_library_debug  src/lz4.c)
+
+add_library(the_lz4_library_debug STATIC
+  src/lz4.c)
 
 target_include_directories(the_lz4_library_debug PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -84,7 +87,9 @@ install(TARGETS the_lz4_library_debug EXPORT the_lz4_libraryTargets
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-add_library(the_lz4_library_memory  src/lz4.c)
+
+add_library(the_lz4_library_memory STATIC
+  src/lz4.c)
 
 target_include_directories(the_lz4_library_memory PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -121,7 +126,9 @@ install(TARGETS the_lz4_library_memory EXPORT the_lz4_libraryTargets
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-add_library(the_lz4_library_static  src/lz4.c)
+
+add_library(the_lz4_library_static STATIC
+  src/lz4.c)
 
 target_include_directories(the_lz4_library_static PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -155,7 +162,9 @@ install(TARGETS the_lz4_library_static EXPORT the_lz4_libraryTargets
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-add_library(the_lz4_library_shared  src/lz4.c)
+
+add_library(the_lz4_library_shared SHARED
+  src/lz4.c)
 
 target_include_directories(the_lz4_library_shared PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
