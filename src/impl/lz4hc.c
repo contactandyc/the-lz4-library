@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: BSD-2-Clause
+// Portions © 2011–present Yann Collet (see LICENSE.lz4)
+
 /*
     LZ4 HC - High Compression Mode of LZ4
     Copyright (C) 2011-2017, Yann Collet.
