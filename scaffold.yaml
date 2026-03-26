@@ -1,12 +1,31 @@
 project_title: The LZ4 Library
 version: 0.0.1
+stack: c/cmake
+date_created: 2019-08-01
+profile: default-knode
 
-profile: andy-curtis/andy-curtis-knode
-template: cmake-c-git
+base_templates:
+  repo: https://github.com/contactandyc/scaffold-templates.git
+  ref: main
+
+# --- The Inline Registry for Overrides ---
+licenses:
+  lz4:
+    license: LICENSE.lz4
+    license_canonical: resources/licenses/lz4.txt
+    # The SPDX anchor is explicitly required here so the engine can track it!
+    spdx: |
+      SPDX-License-Identifier: BSD-2-Clause
+      Portions © 2011–present Yann Collet (see LICENSE.lz4)
+    notice: |
+      Portions © 2011–present Yann Collet — BSD-2-Clause (see LICENSE.lz4)
 
 library_sources:
   - src/lz4.c
+
+# Notice how it points directly to the dictionary key above
 license_overrides:
-  "src/impl/**": andy-curtis/lz4
+  "src/impl/**": lz4
+
 depends_on:
   - https://github.com/contactandyc/a-memory-library.git
