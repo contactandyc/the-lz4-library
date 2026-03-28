@@ -17,11 +17,23 @@ option(A_ENABLE_COVERAGE "Enable code coverage instrumentation" OFF)
 
 find_library(M_LIB m)
 
-# ---- Test executables ----
-set(TEST_EXECUTABLES "")
-add_executable(test_lz4  src/test_lz4.c)
+find_package(a_memory_library CONFIG REQUIRED)
 
-target_include_directories(test_lz4 PRIVATE  ${CMAKE_CURRENT_SOURCE_DIR}/src)
+# Fallback for standalone test builds (when not included via add_subdirectory)
+if(NOT TARGET the_lz4_library::the_lz4_library)
+  find_package(the_lz4_library CONFIG REQUIRED)
+endif()
+
+set(TEST_EXECUTABLES "")
+
+# ---- Targets ----
+add_executable(test_lz4
+  src/test_lz4.c
+)
+
+target_include_directories(test_lz4 PRIVATE
+  ${CMAKE_CURRENT_SOURCE_DIR}/../src
+)
 
 list(APPEND TEST_EXECUTABLES test_lz4)
 
@@ -36,9 +48,7 @@ if("CXX" IN_LIST CMAKE_PROJECT_LANGUAGES)
   )
 endif()
 
-if(NOT TARGET the_lz4_library::the_lz4_library)
-  find_package(the_lz4_library CONFIG REQUIRED)
-endif()
+target_link_libraries(test_lz4 PRIVATE a_memory_library::a_memory_library)
 target_link_libraries(test_lz4 PRIVATE the_lz4_library::the_lz4_library)
 
 if(M_LIB)
