@@ -49,14 +49,12 @@ find_package(a_memory_library CONFIG REQUIRED)
 # ── Main Targets (Compiled Libraries) ─────────────────────────────────────────
 
 add_library(the_lz4_library_debug STATIC
-  src/impl/lz4.c
-  src/impl/lz4hc.c
-  src/impl/xxhash.c
   src/lz4.c
 )
 
 target_include_directories(the_lz4_library_debug PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
@@ -86,14 +84,12 @@ install(TARGETS the_lz4_library_debug EXPORT the_lz4_libraryTargets
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 add_library(the_lz4_library_memory STATIC
-  src/impl/lz4.c
-  src/impl/lz4hc.c
-  src/impl/xxhash.c
   src/lz4.c
 )
 
 target_include_directories(the_lz4_library_memory PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
@@ -126,14 +122,12 @@ install(TARGETS the_lz4_library_memory EXPORT the_lz4_libraryTargets
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 add_library(the_lz4_library_static STATIC
-  src/impl/lz4.c
-  src/impl/lz4hc.c
-  src/impl/xxhash.c
   src/lz4.c
 )
 
 target_include_directories(the_lz4_library_static PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
@@ -163,14 +157,12 @@ install(TARGETS the_lz4_library_static EXPORT the_lz4_libraryTargets
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 add_library(the_lz4_library_shared SHARED
-  src/impl/lz4.c
-  src/impl/lz4hc.c
-  src/impl/xxhash.c
   src/lz4.c
 )
 
 target_include_directories(the_lz4_library_shared PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 

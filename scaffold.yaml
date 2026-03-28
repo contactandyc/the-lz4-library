@@ -8,6 +8,12 @@ base_templates:
   repo: https://github.com/contactandyc/scaffold-templates.git
   ref: main
 
+main:
+  targets:
+    the_lz4_library:
+      sources:
+        - src/lz4.c
+
 # --- The Inline Registry for Overrides ---
 licenses:
   lz4:
