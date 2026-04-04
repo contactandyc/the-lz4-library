@@ -40,13 +40,9 @@ list(APPEND TEST_EXECUTABLES test_lz4)
 set_target_properties(test_lz4 PROPERTIES
   C_STANDARD 23
   C_STANDARD_REQUIRED YES
+  CXX_STANDARD 17
+  CXX_STANDARD_REQUIRED YES
 )
-if("CXX" IN_LIST CMAKE_PROJECT_LANGUAGES)
-  set_target_properties(test_lz4 PROPERTIES
-    CXX_STANDARD 17
-    CXX_STANDARD_REQUIRED YES
-  )
-endif()
 
 target_link_libraries(test_lz4 PRIVATE a_memory_library::a_memory_library)
 target_link_libraries(test_lz4 PRIVATE the_lz4_library::the_lz4_library)
