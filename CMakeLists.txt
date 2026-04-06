@@ -8,7 +8,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(the_lz4_library
-  VERSION 0.1.2
+  VERSION 0.1.4
   LANGUAGES C
 )
 # ── Variant selection for the umbrella alias ──────────────────────────────────
