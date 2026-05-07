@@ -9,6 +9,11 @@ cmake_minimum_required(VERSION 3.20)
 
 project(the_lz4_library_tests LANGUAGES C)
 
+if(CMAKE_PREFIX_PATH)
+  include_directories("${CMAKE_PREFIX_PATH}/include")
+  link_directories("${CMAKE_PREFIX_PATH}/lib")
+endif()
+
 set(A_BUILD_VARIANT "debug" CACHE STRING
     "Variant to link via the_lz4_library::the_lz4_library (debug|memory|static|shared)")
 set_property(CACHE A_BUILD_VARIANT PROPERTY STRINGS debug memory static shared)
@@ -27,12 +32,17 @@ endif()
 set(TEST_EXECUTABLES "")
 
 # ---- Targets ----
+# ==============================================================================
+# test_lz4 Target (Standard Test)
+# ==============================================================================
 add_executable(test_lz4
   src/test_lz4.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src/lz4.c
 )
 
 target_include_directories(test_lz4 PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/../src
+  ${CMAKE_CURRENT_SOURCE_DIR}/../include
 )
 
 list(APPEND TEST_EXECUTABLES test_lz4)
