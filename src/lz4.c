@@ -137,6 +137,7 @@ int lz4_finish(lz4_t *l, void *dest) {
 */
 bool lz4_skip(lz4_t *l, const void *src, uint32_t src_len, void *dest,
                  uint32_t dest_len, bool compressed) {
+  (void)compressed;
   if (l->block_checksum) {
     char *srcp = (char *)src;
     uint32_t checksum = read_little_endian_32(srcp + src_len - 4);
@@ -309,6 +310,7 @@ bool lz4_check_header(lz4_header_t *r, void *header,
   r->block_checksum = block_checksum;
   r->content_checksum = content_checksum;
   r->header = (char *)headerp;
+  r->size = size;
   return true;
 }
 
@@ -428,7 +430,7 @@ size_t lz4_compress_appending_to_buffer(aml_buffer_t *dest, void *src, int src_s
         compressed_data_size = LZ4_compress_default((const char *)src, (char *)dst, src_size, max_dst_size);
     } else {
         // Use high-compression mode
-        char *ep = dst+max_dst_size;
+        char *ep = (char *)dst + max_dst_size;
         ep += 8 - ((size_t)ep & 7); // Ensure 8-byte alignment
         LZ4_streamHC_t *hc_stream = (LZ4_streamHC_t *)ep; // Place HC stream after the compressed data space
 
