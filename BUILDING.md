@@ -1,7 +1,7 @@
 # BUILDING
 
 This project: **The LZ4 Library**
-Version: **0.1.6**
+Version: **0.1.7**
 
 ## Local build
 
