@@ -33,6 +33,7 @@ library_sources:
 license_overrides:
   "src/impl/**": lz4
   "include/the-lz4-library/xxhash.h": lz4
+  "include/the-lz4-library/lz4/*.h": lz4
 
 depends_on:
   - https://github.com/contactandyc/a-memory-library.git

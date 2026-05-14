@@ -53,7 +53,7 @@
 
 /*===    Dependency    ===*/
 #define LZ4_HC_STATIC_LINKING_ONLY
-#include "lz4hc.h"
+#include "the-lz4-library/lz4/lz4hc.h"
 
 
 /*===   Common LZ4 definitions   ===*/
